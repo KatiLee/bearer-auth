@@ -1,7 +1,13 @@
 'use strict';
 
-const { db } = require('./src/auth/models/index.js');
+require('dotenv').config();
+const PORT = process.env.PORT || 3002
+const { db } = require('./src/auth/models');
+const { start } = require('./src/server');
+
 db.sync()
     .then(() => {
-        require('./src/server.js').start(process.env.PORT);
-    });
+        console.log('Launch the DataB');
+        start(PORT);
+    })
+    .catch((error) => console.error(error));
